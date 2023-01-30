@@ -60,6 +60,7 @@ return (
             <br />
             <button type="submit" style={{ padding: 5, width: 200 }}>Sign Up</button>    
             </center>
+            <h1>HEllllloooooo</h1>
         </form> 
     </div>
     )
