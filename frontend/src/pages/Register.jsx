@@ -48,6 +48,7 @@ return (
             <input type="text" placeholder="Mobile Number or Email" name="info" value={info} onChange={onChange} style={{padding:5,width:200}}/>
             <br />
             <br />
+            <br />
             <input type="text" placeholder="Full Name" onChange={onChange} name="fullName" value={fullName} style={{ padding: 5, width: 200 }} />
             <br />
             <br />
