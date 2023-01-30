@@ -27,7 +27,6 @@ return(
             <input type="text" name="data" value={data} placeholder="Phone number,username,email" onChange={onChange} style={{padding:5,width:200}}/>
             <br />
             <br />
-            Heelo From Vaibhav
             <input type="password" name="password" value={password} placeholder="Password" onChange={onChange} style={{ padding: 5, width: 200 }} />
             <br />
             <br />

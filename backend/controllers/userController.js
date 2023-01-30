@@ -12,6 +12,7 @@ const userLogin = asyncHandler(async(req, res) => {
 //@route /moments/user/
 // @access Private
 const userRegister = asyncHandler(async(req, res) => {
+    console.log(req.body)
     res.status(200).json({ messege: "From Register" })
 })
 

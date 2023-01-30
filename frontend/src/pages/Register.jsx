@@ -1,17 +1,19 @@
 import React from "react";
+import { useAddUserDataMutation } from '../api/apiSlice'
 import { useState } from "react";
 function Register() {
+
 const [user, setUserData] = useState({
-    data: "",
+    info: "",
     fullName: "",
     userName: "",
     password: "",
     type:""
 })
-    
+const { info, fullName, userName, password } = user
 var mobileFormat = /^[0]?[789]\d{9}$/
 var mailformat = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-const { data, fullName, userName, password } = user
+const [addUserData]=useAddUserDataMutation()
 
 const onChange = (e) => { 
     setUserData((prevState)=>({
@@ -22,44 +24,44 @@ const onChange = (e) => {
 
 const onSignup = (e) => {
     e.preventDefault()    
-    var messege = () =>{
-        if (user.data === "" && user.fullName === "" && user.password === "" && user.userName === "") {
-            return "Textbox is Empty"
-        }
-        else if (!data.match(mobileFormat) && !data.match(mailformat)) {
-            return "Incorrect Format of Mobile or Email"
-        }
-    } 
-    if(data.match(mobileFormat)) {
+    if (user.info === "" && user.fullName === "" && user.password === "" && user.userName === "") {
+        console.log("Textbox is Empty")
+    }
+    else if (!info.match(mobileFormat) && !info.match(mailformat)) {
+        console.log("Incorrect Format of Mobile or Email")
+    }
+    else{
+        addUserData({user})
+    }
+    if(info.match(mobileFormat)) {
         user.type="mobileno"
     }
-    else if (data.match(mailformat)) {
+    else if (info.match(mailformat)) {
         user.type="email"
     }
-    console.log(user)
 }   
 return (
-<div className="Register">
-    <form onSubmit={onSignup}>
-        <center>
-        <h1>Register</h1>
-        <input type="text" placeholder="Mobile Number or Email" name="data" value={data} onChange={onChange} style={{padding:5,width:200}}/>
-        <br />
-        <br />
-        <input type="text" placeholder="Full Name" onChange={onChange} name="fullName" value={fullName} style={{ padding: 5, width: 200 }} />
-        <br />
-        <br />
-        <input type="text" placeholder="Username" onChange={onChange} name="userName" value={userName} style={{ padding: 5, width: 200 }} />
-        <br />
-        <br />
-        <input type="text" placeholder="Password" onChange={onChange} name="password" value={password} style={{ padding: 5, width: 200 }} />
-        <br />
-        <br />
-        <button type="submit" style={{ padding: 5, width: 200 }}>Sign Up</button>    
-        </center>
-    </form> 
-</div>
-)
+    <div className="Register">
+        <form onSubmit={onSignup}>
+            <center>
+            <h1>Register</h1>
+            <input type="text" placeholder="Mobile Number or Email" name="info" value={info} onChange={onChange} style={{padding:5,width:200}}/>
+            <br />
+            <br />
+            <input type="text" placeholder="Full Name" onChange={onChange} name="fullName" value={fullName} style={{ padding: 5, width: 200 }} />
+            <br />
+            <br />
+            <input type="text" placeholder="Username" onChange={onChange} name="userName" value={userName} style={{ padding: 5, width: 200 }} />
+            <br />
+            <br />
+            <input type="text" placeholder="Password" onChange={onChange} name="password" value={password} style={{ padding: 5, width: 200 }} />
+            <br />
+            <br />
+            <button type="submit" style={{ padding: 5, width: 200 }}>Sign Up</button>    
+            </center>
+        </form> 
+    </div>
+    )
 }
 
 export default Register;
