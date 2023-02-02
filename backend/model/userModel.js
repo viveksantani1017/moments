@@ -14,12 +14,10 @@ const userSchema = mongoose.Schema({
         required: [true, 'Please add a password']
     },
     email: {
-        type: String,
-        required: [true, 'Please add a email']
+        type: String
     },
     mobileNumber: {
-        type: Number,
-        required: [true, 'Please add a mobile no']
+        type: Number
     },
     bio: {
         type: String
@@ -49,4 +47,4 @@ const userSchema = mongoose.Schema({
         default: false
     }
 })
-module.exports = mongoose.model("user", userSchema)
+module.exports = mongoose.model("User", userSchema)

@@ -10,6 +10,7 @@ const [user, setUserData] = useState({
     password: "",
     type:""
 })
+
 const { info, fullName, userName, password } = user
 var mobileFormat = /^[0]?[789]\d{9}$/
 var mailformat = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
@@ -31,7 +32,9 @@ const onSignup = (e) => {
         console.log("Incorrect Format of Mobile or Email")
     }
     else{
-        addUserData({user})
+        addUserData({user}).unwrap().then((response)=>{
+            console.log(response)
+        })
     }
     if(info.match(mobileFormat)) {
         user.type="mobileno"
@@ -46,7 +49,6 @@ return (
             <center>
             <h1>Register</h1>
             <input type="text" placeholder="Mobile Number or Email" name="info" value={info} onChange={onChange} style={{padding:5,width:200}}/>
-            <br />
             <br />
             <br />
             <input type="text" placeholder="Full Name" onChange={onChange} name="fullName" value={fullName} style={{ padding: 5, width: 200 }} />
