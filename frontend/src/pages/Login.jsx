@@ -1,13 +1,20 @@
 import React from "react";
 import { useState } from "react";
+import {useAuthoriseUserDataMutation} from "../api/userSlice"
 function Login() {   
+
 const [user, setUserCredential] = useState({
     data: "",
-    password:""
+    password:"",
+    type:""
 })
-
 const {data,password}=user    
-    
+var mobileFormat = /^[0]?[789]\d{9}$/
+var mailformat = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+var usernameformat= "^[A-Za-z][A-Za-z0-9_]{7,29}$";
+
+const [authoriseUserData]=useAuthoriseUserDataMutation()
+
 const onChange = (e) => { 
     setUserCredential((prevState)=>({
             ...prevState,
@@ -16,8 +23,24 @@ const onChange = (e) => {
 }    
     
 const onLogin = (e) => { 
-    e.preventDefault() 
-    console.log(user)
+    e.preventDefault()    
+    if (user.data === "" && user.password === "") {
+        console.log("Textbox is Empty")
+    }
+    else{
+        authoriseUserData(user).unwrap().then((response)=>{
+            console.log(response)
+        })
+    }
+    if(data.match(mobileFormat)) {
+        user.type="mobileno"
+    }
+    else if (data.match(mailformat)) {
+        user.type="email"
+    }
+    else if(usernameformat){
+        user.type="username"
+    }
 }
 return(
     <div className="Login">

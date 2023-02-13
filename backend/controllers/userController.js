@@ -7,8 +7,26 @@ const { exists } = require("../model/userModel");
 //@route /moments/user/login
 // @access Private
 const userLogin = asyncHandler(async(req, res) => {
-    console.log(req.body.text);
-    res.status(200).json({ messege: "From Login" });
+    const { data, password, type } = req.body;
+    let toCheck
+    if (!data || !password || !type) {
+        return res.status(201).json({ success: false, messege: "Fill The Data Properly" });
+    }
+    if (type == "email") {
+        toCheck = "email";
+    } else if (type == "mobileno") {
+        toCheck = "mobileNumber";
+    } else {
+        toCheck = "userName";
+    }
+    const userData = await User.findOne({
+        [toCheck]: data
+    })
+    if (userData && (await bycry.compare(password, userData.password))) {
+        res.json({ success: true, messege: 'Logged In' })
+    } else {
+        res.json({ success: false, messege: 'Incorrect Username or Password' })
+    }
 });
 
 //@desc userRegister

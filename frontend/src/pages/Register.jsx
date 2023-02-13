@@ -1,5 +1,5 @@
 import React from "react";
-import { useAddUserDataMutation } from '../api/apiSlice'
+import { useAddUserDataMutation } from '../api/userSlice'
 import { useState } from "react";
 function Register() {
 
@@ -14,6 +14,7 @@ const [user, setUserData] = useState({
 const { info, fullName, userName, password } = user
 var mobileFormat = /^[0]?[789]\d{9}$/
 var mailformat = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+var usernameformat= "^[A-Za-z][A-Za-z0-9_]{7,29}$";
 const [addUserData]=useAddUserDataMutation()
 
 const onChange = (e) => { 
@@ -30,6 +31,9 @@ const onSignup = (e) => {
     }
     else if (!info.match(mobileFormat) && !info.match(mailformat)) {
         console.log("Incorrect Format of Mobile or Email")
+    }
+    else if(!userName.match(usernameformat)){
+        console.log("Incorrect Format of Username")
     }
     else{
         addUserData({user}).unwrap().then((response)=>{
